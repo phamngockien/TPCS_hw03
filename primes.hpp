@@ -1,107 +1,84 @@
 //
-// Created by useer on 10/11/2018.
+// Created by Pham Ngoc Kien on 10/11/2018.
+//
+// SNU-ID: 2018-36543
+//
+// Homework 03
+// The codes here have been uploaded to https://github.com/phamngockien/TPCS_hw03
+// In this homework I will write a function to generate a “list” of all primes up to a number N,
+// and check for what functions worked well, and what did not.
 //
 
+//
+// definition of header file
+//
 #ifndef TPCS_HW03_PRIMES_HPP
 #define TPCS_HW03_PRIMES_HPP
-
-#include <c++/vector>
-#include <cmath>
-#include <list>
-#include <iostream>
-
-namespace timing{
+//
+#include <c++/vector> // for vector
+#include <cmath> // for calculating square root
+#include <list> // for list
+#include <iostream> // for output
+//
+// create functions in timing namespace
+//
+namespace timing {
     //
-    // function to generate a “list” of all primes up to a number n
-    // using the sieve of Eratosthenes
+    // function to generate a vector of all primes up to a number n
+    // using the sieve of Eratosthenes algorithm
     //
-    std::vector<unsigned long> primes_vec(unsigned long n)
-    {
+    std::vector<unsigned long> primes_erat(unsigned long n) {
         //
-        // if n < 2 then end the function
+        // creating vector v of boolean values (n+1 elements)
+        // indexed by integers 0 to n
         //
-        if (n < 2)
-        {
-            std::cout<<"there is no prime smaller than 2\n";
-        }
-        //
-        // creating vector v of boolean values
-        // indexed by integers 2 to n
-        //
-        std::vector<bool> v(n);
+        std::vector<bool> v(n+1);
         //
         // initially set all numbers are primes
         //
         std::fill(v.begin(), v.end(), true);
         //
-        // set numbers: 0 and 1 are not primes
+        // set 0 and 1 are not primes
         //
-        v[0]= false;
-        v[1]= false;
+        v[0] = false;
+        v[1] = false;
         //
-        // using the sieve of Eratosthenes to
-        // cross out the numbers which are not primes
-        // count the number of primes from 2 to n
+        // using the sieve of Eratosthenes to create an iteration to
+        // cross out the numbers which are not primes (the multiples of i)
+        // i is the verified prime number, the initial i is 2.
         //
-        for (unsigned long i = 2; i < sqrt(n) ; ++i) {
-            if (v[i])
-            {
-                for (unsigned long j = i*i; j < n; j=j+i)
-                {
-                    v[j]=false;
+        for (unsigned long i = 2; i < n; ++i) {
+            if (v[i]) {
+                for (unsigned long j = i + i; j <= n; j = j + i) {
+                    v[j] = false;
 
                 }
             }
         }
         //
-        // create a vector to store primes
-        //
-       // unsigned long count=0;
-        //for (unsigned long i = 2; i < n ; ++i)
-        //{
-         //   if (v[i]) {
-           //     ++count;
-            //}
-       // }
-        //
-        // return index value (i) of v[i]=true into
+        // return index value of v[i]=true into
         // a vector of primes
         //
-        //unsigned long j=0;
-        //std::vector<unsigned long> result(count);
-        //for (unsigned long i = 2; i < n ; ++i) {
-          //  if (v[i]) {
-            //    result[j]=i;
-              //  ++j;
-            //}
-        //}
         std::vector<unsigned long> result;
-        unsigned long j=0;
-        for (unsigned long i = 2; i < n ; ++i) {
+        for (unsigned long i = 2; i <= n; ++i) {
             if (v[i]) {
-                result.insert(result.end(),i);
-                ++j;
+                result.insert(result.end(), i);
             }
         }
         return result;
     }
-//
-// other function using list
-//
-    std::list <unsigned long> primes_list(unsigned long n)
-    {
+
+    //
+    // function to generate a vector of all primes up to a number n
+    // using the sieve of Eratosthenes algorithm that
+    // includes a common optimization, which is to start enumerating the multiples of each prime i from i square
+    //
+    std::vector<unsigned long> primes_vec(unsigned long n) {
         //
-        // if n < 2 then end the function
+        // creating vector v of boolean values (n+1 elements)
+        // indexed by integers 0 to n
         //
-        if (n < 2)
-        {
-           std::cout<<"there is no prime smaller than 2\n";
-        }
-        //
-        // creating vector v of boolean values
-        // indexed by integers 2 to n
-        //
-        std::vector<bool> v(n);
+        std::vector<bool> v(n+1);
         //
         // initially set all numbers are primes
         //
@@ -109,17 +86,63 @@ namespace timing{
         //
         // set numbers: 0 and 1 are not primes
         //
-        v[0]= false;
-        v[1]= false;
+        v[0] = false;
+        v[1] = false;
         //
         // using the sieve of Eratosthenes to
         // cross out the numbers which are not primes
-        // count the number of primes from 2 to n
+        // includes a common optimization, which is to start enumerating the multiples of each prime i from i square
         //
-        for (unsigned long i = 2; i < sqrt(n) ; ++i) {
-            if (v[i]){
-                for (unsigned long j = i*i; j < n; j=j+i) {
-                    v[j]=false;
+        for (unsigned long i = 2; i <= sqrt(n); ++i) {
+            if (v[i]) {
+                for (unsigned long j = i * i; j <= n; j = j + i) {
+                    v[j] = false;
+
+                }
+            }
+        }
+        //
+        // return index value of v[i]=true into
+        // a vector of primes
+        //
+        std::vector<unsigned long> result;
+        for (unsigned long i = 2; i <= n; ++i) {
+            if (v[i]) {
+                result.insert(result.end(), i);
+            }
+        }
+        return result;
+    }
+
+    //
+    // function to generate a list of all primes up to a number n
+    // using the sieve of Eratosthenes algorithm that
+    // includes a common optimization, which is to start enumerating the multiples of each prime i from i square
+    //
+    std::list<unsigned long> primes_list(unsigned long n) {
+        //
+        // creating vector v of boolean values (n+1 elements)
+        // indexed by integers 0 to n
+        //
+        std::vector<bool> v(n+1);
+        //
+        // initially set all numbers are primes
+        //
+        std::fill(v.begin(), v.end(), true);
+        //
+        // set numbers: 0 and 1 are not primes
+        //
+        v[0] = false;
+        v[1] = false;
+        //
+        // using the sieve of Eratosthenes to
+        // cross out the numbers which are not primes
+        // includes a common optimization, which is to start enumerating the multiples of each prime i from i square
+        //
+        for (unsigned long i = 2; i <= sqrt(n); ++i) {
+            if (v[i]) {
+                for (unsigned long j = i * i; j <= n; j = j + i) {
+                    v[j] = false;
                 }
             }
         }
@@ -128,14 +151,15 @@ namespace timing{
         // a list of primes
         //
         std::list<unsigned long> result;
-        unsigned long j=0;
-        for (unsigned long i = 2; i < n ; ++i) {
+        for (unsigned long i = 2; i <= n; ++i) {
             if (v[i]) {
-                result.insert(result.end(),i);
-                ++j;
+                result.insert(result.end(), i);
             }
         }
         return result;
     }
-}
+};
+//
+// end of header file
+//
 #endif //TPCS_HW03_PRIMES_HPP
