@@ -22,12 +22,14 @@
 //
 // create functions in timing namespace
 //
-namespace timing {
+namespace timing
+{
     //
     // function to generate a vector of all primes up to a number n
     // using the sieve of Eratosthenes algorithm
     //
-    std::vector<unsigned long> primes_erat(unsigned long n) {
+    std::vector<unsigned long> primes_erat(unsigned long n)
+    {
         //
         // creating vector v of boolean values (n+1 elements)
         // indexed by integers 0 to n
@@ -47,9 +49,12 @@ namespace timing {
         // cross out the numbers which are not primes (the multiples of i)
         // i is the verified prime number, the initial i is 2.
         //
-        for (unsigned long i = 2; i < n; ++i) {
-            if (v[i]) {
-                for (unsigned long j = i + i; j <= n; j = j + i) {
+        for (unsigned long i = 2; i < n; ++i)
+        {
+            if (v[i])
+            {
+                for (unsigned long j = i + i; j <= n; j = j + i)
+                {
                     v[j] = false;
 
                 }
@@ -60,8 +65,10 @@ namespace timing {
         // a vector of primes
         //
         std::vector<unsigned long> result;
-        for (unsigned long i = 2; i <= n; ++i) {
-            if (v[i]) {
+        for (unsigned long i = 2; i <= n; ++i)
+        {
+            if (v[i])
+            {
                 result.insert(result.end(), i);
             }
         }
@@ -73,7 +80,8 @@ namespace timing {
     // using the sieve of Eratosthenes algorithm that
     // includes a common optimization, which is to start enumerating the multiples of each prime i from i square
     //
-    std::vector<unsigned long> primes_vec(unsigned long n) {
+    std::vector<unsigned long> primes_vec(unsigned long n)
+    {
         //
         // creating vector v of boolean values (n+1 elements)
         // indexed by integers 0 to n
@@ -93,9 +101,12 @@ namespace timing {
         // cross out the numbers which are not primes
         // includes a common optimization, which is to start enumerating the multiples of each prime i from i square
         //
-        for (unsigned long i = 2; i <= sqrt(n); ++i) {
-            if (v[i]) {
-                for (unsigned long j = i * i; j <= n; j = j + i) {
+        for (unsigned long i = 2; i <= sqrt(n); ++i)
+        {
+            if (v[i])
+            {
+                for (unsigned long j = i * i; j <= n; j = j + i)
+                {
                     v[j] = false;
 
                 }
@@ -106,8 +117,10 @@ namespace timing {
         // a vector of primes
         //
         std::vector<unsigned long> result;
-        for (unsigned long i = 2; i <= n; ++i) {
-            if (v[i]) {
+        for (unsigned long i = 2; i <= n; ++i)
+        {
+            if (v[i])
+            {
                 result.insert(result.end(), i);
             }
         }
@@ -119,7 +132,8 @@ namespace timing {
     // using the sieve of Eratosthenes algorithm that
     // includes a common optimization, which is to start enumerating the multiples of each prime i from i square
     //
-    std::list<unsigned long> primes_list(unsigned long n) {
+    std::list<unsigned long> primes_list(unsigned long n)
+    {
         //
         // creating vector v of boolean values (n+1 elements)
         // indexed by integers 0 to n
@@ -139,9 +153,12 @@ namespace timing {
         // cross out the numbers which are not primes
         // includes a common optimization, which is to start enumerating the multiples of each prime i from i square
         //
-        for (unsigned long i = 2; i <= sqrt(n); ++i) {
-            if (v[i]) {
-                for (unsigned long j = i * i; j <= n; j = j + i) {
+        for (unsigned long i = 2; i <= sqrt(n); ++i)
+        {
+            if (v[i])
+            {
+                for (unsigned long j = i * i; j <= n; j = j + i)
+                {
                     v[j] = false;
                 }
             }
@@ -151,8 +168,10 @@ namespace timing {
         // a list of primes
         //
         std::list<unsigned long> result;
-        for (unsigned long i = 2; i <= n; ++i) {
-            if (v[i]) {
+        for (unsigned long i = 2; i <= n; ++i)
+        {
+            if (v[i])
+            {
                 result.insert(result.end(), i);
             }
         }

@@ -14,7 +14,8 @@
 // Main function for testing with experiments to generate a “list” of all primes up to a number N.
 // The goal is to write a FAST function
 //
-int main() {
+int main()
+{
     //
     // call three test functions in timing namespace to produce all the tasks
     //

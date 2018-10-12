@@ -17,6 +17,30 @@
 //    using the sieve of Eratosthenes algorithm, including a common optimization
 //  + timing_primes_list() tests the function to generate a list of all primes up to a number n
 //    using the sieve of Eratosthenes algorithm, including a common optimization
+// Comments about experiments:
+// - The first function "primes_erat" using the "ancient" sieve of Eratosthenes algorithm without any optimization.
+//   It iteratively marks as composite (i.e., not prime) the multiples of each prime,
+//   starting with the first prime number, 2.
+//   The multiples of a given prime are generated as a sequence of numbers starting from that prime,
+//   with constant difference between them that is equal to that prime.
+//   In this function I let the iteration running from 2 to n. This takes more than 12 seconds with my laptop to
+//   finish the algorithm and store all primes into a vector.
+// - The second function "primes_vec" using the sieve of Eratosthenes algorithm with an optimization.
+//   It starts enumerating the multiples of each prime i from i square,
+//   and stores the result into a vector like the first function.
+//   Therefore, the number of iterations is reduced significantly.
+//   This leads to the fact that elapsed time for the second function is usually more than 7 seconds,
+//   which is 5 seconds faster than the first function.
+// - The third function "primes_list" using the same algorithm as the second one.
+//   However, it stores the result into a list instead of a vector.
+//   My purpose is to compare the speed of storing data into these two different containers.
+//   The elapsed time for the third function in my computer is more than 7 seconds,
+//   but it is about 0.4 - 0.6 seconds slower than that of the second function.
+//
+//   Conclusion:
+//   - When we change the algorithm to reduce the number of iterations to list primes,
+//   the time to do this task is shorter.
+//   - A vector stores data faster than a list.
 //
 
 //
@@ -40,8 +64,10 @@ void print_container(const T &t)
     // if the size of container is either equal to or smaller than 10,
     // print all elements of the container
     //
-    if (t.size()<=10){
-           for (auto v:t){
+    if (t.size()<=10)
+    {
+           for (auto v:t)
+           {
                std::cout<<v<<" ";
            }
            std::cout<<"\n";
@@ -50,13 +76,15 @@ void print_container(const T &t)
     // if the size of container is larger than 10,
     // print the first ten elements and the last element of the container
     //
-    if (t.size()>10){
+    if (t.size()>10)
+    {
         //
         // print the first ten primes
         //
         std::cout<<"the first ten primes found is: \n";
         auto j=t.begin();
-        for (int k = 1; k < 10; ++k) {
+        for (int k = 1; k < 10; ++k)
+        {
             std::cout<< *j << " ";
             ++j;
         }
@@ -72,12 +100,14 @@ void print_container(const T &t)
 //
 // create a timing namespace to calculate how much time it takes for each function
 //
-namespace timing {
+namespace timing
+{
     //
     // this function is to test the function "primes_erat" to generate a vector of all primes up to a number n
     // using the sieve of Eratosthenes algorithm
     //
-    void timing_primes_erat() {
+    void timing_primes_erat()
+    {
         //
         // create start and stop variables to measure the time for testing the function
         //
@@ -109,7 +139,8 @@ namespace timing {
     // this function is to test the function "primes_vec" to generate a vector of all primes up to a number n
     // using the sieve of Eratosthenes algorithm that includes a common optimization
     //
-    void timing_primes_vec() {
+    void timing_primes_vec()
+    {
         //
         // create start and stop variables to measure the time for testing the function
         //
@@ -141,7 +172,8 @@ namespace timing {
     // this function is to test the function "primes_list" to generate a list of all primes up to a number n
     // using the sieve of Eratosthenes algorithm that includes a common optimization
     //
-    void timing_primes_list() {
+    void timing_primes_list()
+    {
         //
         // create start and stop variables to measure the time for testing the function
         //
